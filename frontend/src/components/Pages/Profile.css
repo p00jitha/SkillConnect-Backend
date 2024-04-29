@@ -1,0 +1,17 @@
+.profile-head {
+    transform: translateY(5rem)
+}
+
+.cover {
+   
+    background-size: cover;
+    background-repeat: no-repeat
+}
+
+#a {
+
+    background: #074173;
+    min-height: 100vh;
+    overflow-x:hidden;
+    color: white;
+}
