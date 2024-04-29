@@ -5,9 +5,8 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   profilePic: { type: String },
-  address:{type:String},
-  latitude: { type: Number,required:true}, 
-  longitude: { type: Number,required:true } 
+  phoneno:{type:Number, required: true},
+  address:{type:String, required:true}
 });
 
 userSchema.index({ location: '2dsphere' }); 
