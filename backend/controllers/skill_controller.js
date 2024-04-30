@@ -27,8 +27,30 @@ try{
     }
     const { userId, skillName, description } = req.body;
     const credentials = req.file.filename; 
+    let userExist;
+    try{
+          userExist = await User.findById(userId)
+    }
+    catch(err)
+    {
+      console.log(err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+    if(!userExist)
+    {
+        return res.status(400).json({message:"unable to find user by this id"})
+    }
     const skill = new Skill({ userId: userId, skillName: skillName, credentials: credentials, description: description });
-    await skill.save();
+    try{
+      await skill.save();
+      userExist.skills.push(skill);
+      await userExist.save();
+    }
+    catch(err)
+    {
+      console.log(err)
+      return res.status(500).json({ error: "Internal server error" });
+    }
     res.status(201).json({ skill });
    })
 }
@@ -68,20 +90,118 @@ export const get_skills = async(req,res)=>{
   }
 }
 
-// export const post_skills = async(req,res)=>{
-//   const { userId, skillName, credentialsphoto, description } = req.body;
-  
-//     try {
-//       const user = await User.findById(userId);
-//       if (!user) {
-//         return res.status(404).json({ message: 'User not found' });
-//       }
-//       const skill = new Skill({ userId:userId, skillName:skillName, credentials:credentials,description:description });
-//       await skill.save();
-//       res.status(201).json({ skill });
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).json({ message: 'Server Error' });
-//     }
-// }
+export const user_skills = async(req,res)=>{
+  const userId = req.params.id;
+  let userSkills;
+  try{
+      userSkills = await User.findById(userId).populate("skills");
+  }
+  catch(err)
+  {
+      return console.log(err)
+  }
+  if(!userBlogs)
+  {
+      return res.status(404).json({massage:"no skills found"});
+  }
+  return res.status(200).json({skills:userSkills})
+}
 
+export const update_skills = async (req, res) => {
+  try {
+    const { userId, skillId, skillName, description } = req.body;
+
+    let userExist;
+    try {
+      userExist = await User.findById(userId);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    if (!userExist) {
+      return res.status(400).json({ message: "Unable to find user by this id" });
+    }
+
+    let skillToUpdate;
+    try {
+      skillToUpdate = await Skill.findById(skillId);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    if (!skillToUpdate) {
+      return res.status(400).json({ message: "Unable to find skill by this id" });
+    }
+
+    if (String(skillToUpdate.userId) !== userId) {
+      return res.status(403).json({ message: "You are not authorized to update this skill" });
+    }
+    skillToUpdate.skillName = skillName;
+    skillToUpdate.description = description;
+    if (req.file) {
+      skillToUpdate.credentials = req.file.filename;
+    }
+
+    try {
+      await skillToUpdate.save();
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    res.status(200).json({ message: "Skill updated successfully", skill: skillToUpdate });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const delete_skill = async (req, res) => {
+  try {
+    const { userId, skillId } = req.params;
+
+    let userExist;
+    try {
+      userExist = await User.findById(userId);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    if (!userExist) {
+      return res.status(400).json({ message: "Unable to find user by this id" });
+    }
+
+    let skillToDelete;
+    try {
+      skillToDelete = await Skill.findById(skillId);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    if (!skillToDelete) {
+      return res.status(400).json({ message: "Unable to find skill by this id" });
+    }
+
+    if (String(skillToDelete.userId) !== userId) {
+      return res.status(403).json({ message: "You are not authorized to delete this skill" });
+    }
+
+    try {
+      await skillToDelete.remove();
+      userExist.skills = userExist.skills.filter(skill => skill.toString() !== skillId);
+      await userExist.save();
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    res.status(200).json({ message: "Skill deleted successfully" });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
