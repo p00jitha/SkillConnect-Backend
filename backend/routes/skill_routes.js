@@ -4,8 +4,8 @@ const router = express.Router()
 
 router.get('/skills',get_skills);
 router.post('/add_skills',post_skills);
-router.get('/myskills/:id',user_skills);
+router.get('/:id',user_skills);
 router.put('/update/:id',update_skills);
-router.delete('/delete/:id',delete_skill)
+router.delete('/:userId/:skillId',delete_skill)
 
 export default router;

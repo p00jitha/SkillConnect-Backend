@@ -27,7 +27,10 @@ export const signup = async(req,res)=>{
         return res.status(500).json({ error: "Internal server error" });
       }
       const {username, email, password, confirmPassword, phoneno, address} = req.body;
-      const profilePic = req.file.filename; 
+      let profilePic;
+      if (req.file) {
+        profilePic = req.file.filename;
+      }
       if (password !== confirmPassword) {
         return res.status(400).json({ error: "Passwords don't match" });
       }
@@ -77,7 +80,6 @@ export const signup = async(req,res)=>{
         return res.status(400).json({ error: "Invalid password" })
       }
       TokenAndCookie(user._id,res);
-      //res.status(200).json({_id:user._id,username:user.username,email:user.email,profilePic:user.profilePic,phoneno:user.phoneno,address:user.address,district:user.district,state:user.state})
       res.status(200).json({user:user})
     }
     catch(err)

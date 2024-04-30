@@ -6,14 +6,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   profilePic: { type: String },
   phoneno:{type:Number, required: true},
-  address:{type:String, required:true},
-  skills:[
-    {
-      type:mongoose.Types.ObjectId,
-      ref:"Skill",
-      required:true
-  }
-  ]
+  address:{type:String, required:true}
 });
 const User = mongoose.model('User', userSchema);
 
