@@ -26,9 +26,7 @@ const Signup = () => {
         password: '',
         confirmPassword: '',
         phoneno: '',
-        location: '',
-        district: '',
-        state: '',
+        address: '',
         profilePic: null
       });
     
@@ -50,7 +48,7 @@ const Signup = () => {
     
       const handleSubmit = async (e) => {
         e.preventDefault();
-        const { username, email, password, confirmPassword, phoneno, location, district, state, profilePic } = formData;
+        const { username, email, password, confirmPassword, phoneno, address, profilePic } = formData;
     
         const formDatasend = new FormData();
         formDatasend.append('username', username);
@@ -58,13 +56,11 @@ const Signup = () => {
         formDatasend.append('password', password);
         formDatasend.append('confirmPassword', confirmPassword);
         formDatasend.append('phoneno', phoneno);
-        formDatasend.append('location', location);
-        formDatasend.append('district', district);
-        formDatasend.append('state', state);
+        formDatasend.append('address', address);
         formDatasend.append('profilePic', profilePic);
     
         try {
-          const response = await axios.post('http://localhost:5000/api/auth/signup', formData, {
+          const response = await axios.post('http://localhost:5000/api/auth/signup', formDatasend, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
@@ -109,7 +105,7 @@ const Signup = () => {
           </div>
           <div className="form-outline mb-4">
             <label className="form-label" >City Name:</label>
-            <input type="text" name="location" className="form-control" placeholder="City Name" value={formData.location} onChange={handleChange} required />
+            <input type="text" name="address" className="form-control" placeholder="City Name" value={formData.location} onChange={handleChange} required />
           </div>
           </div>
           <div className="form-outline mb-4">
