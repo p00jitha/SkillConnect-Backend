@@ -11,7 +11,7 @@ const Login = () => {
          justifyContent:'center',
          alignItems:'center',
          minHeight:'90vh',
-        color:'blue'
+        color:'white'
        }
        const loginStyle={
          width:'450px',
@@ -19,7 +19,7 @@ const Login = () => {
         display:'flex',
          flexDirection:'column',
          padding:'30px 25px 30px 25px',
-         boxShadow:'5px 5px 5px 5px blue'
+         boxShadow:'5px 5px 5px 5px white'
       }
   const navigate = useNavigate(); 
   const [email,setEmail] = useState('')
@@ -68,7 +68,7 @@ const Login = () => {
          <button type="submit" className="btn btn-primary btn-block mb-4">Login</button>
            <div className="row mb-4">
            <div className="row">
-             <p>Already Registered?<a href="/signup" style={{ color: 'blue' }}>Signup</a></p>
+             <p>Already Registered?<a href="/signup" style={{ color: 'white' }}>Signup</a></p>
            </div>
         </div>
             </form>

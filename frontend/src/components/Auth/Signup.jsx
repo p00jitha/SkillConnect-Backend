@@ -10,7 +10,7 @@ const Signup = () => {
     justifyContent:'center',
     alignItems:'center',
     minHeight:'100vh',
-    color:'blue'
+    color:'white'
   }
   const loginStyle={
     width:'500px',
@@ -18,7 +18,7 @@ const Signup = () => {
     display:'flex',
     flexDirection:'column',
     padding:'30px 30px 30px 30px',
-    boxShadow:'5px 5px 5px 5px blue'
+    boxShadow:'5px 5px 5px 5px white'
   }
     const [formData, setFormData] = useState({
         username: '',
@@ -115,7 +115,7 @@ const Signup = () => {
           <button type="submit" className="btn btn-primary btn-block mb-4">Register</button>
           <div className="row mb-4">
             <div className="row">
-              <p>Already Registered?<a href="/login" style={{ color: 'blue' }}>Login</a></p>
+              <p>Already Registered?<a href="/login" style={{ color: 'white' }}>Login</a></p>
             </div>
           </div>
         </form>
@@ -127,15 +127,3 @@ const Signup = () => {
 }
 
 export default Signup
-
-{/* <div style={{display:"flex",flexDirection:"row",gap:"50px"}}>
-          <div className="form-outline mb-4">
-            <label className="form-label" for="form2Example2">District</label>
-            <input type="text" name="district" className="form-control" placeholder="District" value={formData.district} onChange={handleChange} required />
-          </div>
-          <div className="form-outline mb-4">
-            <label className="form-label" for="form2Example2">State</label>
-            <input type="text" name="state" className="form-control" placeholder="State" value={formData.state} onChange={handleChange} required />
-          </div>
-          </div>
- */}
