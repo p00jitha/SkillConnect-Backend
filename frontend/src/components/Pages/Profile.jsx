@@ -1,5 +1,5 @@
 import React from 'react';
-import './Profile.css'
+import './styles/Profile.css'
 
 const Profile = ({ username, email, phoneno, address, imgurl, skills }) => {
     console.log(skills[0].description)

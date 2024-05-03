@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { authActions } from "../Store";
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -8,8 +8,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import logo from '../Images/logo.jpeg';
 function Header() {
-  const dispath=useDispatch();
-  const isLoggedIn = useSelector((state)=>state.isLoggedIn);
+  const dispath = useDispatch();
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   console.log(isLoggedIn)
   return (
     <Navbar expand="lg" style={{ backgroundColor: "#074173" }}>
@@ -33,12 +33,15 @@ function Header() {
               navbarScroll
             >
               <Nav.Link href="/" style={{ color: "#ffffff" }} >HOME</Nav.Link>
-             {isLoggedIn&& <>
-              <Nav.Link href="/display" style={{ color: "#ffffff" }} >SKILLS</Nav.Link>
-              <Nav.Link href="/addskill" style={{ color: "#ffffff" }}>ADD SKILL</Nav.Link></>}   
-                   {!isLoggedIn && <><Nav.Link href="/login" style={{ color: "#ffffff" }} >LOGIN</Nav.Link>
-                    <Nav.Link href="/signup" style={{ color: "#ffffff" }}>SIGNUP</Nav.Link></> }
-                    {isLoggedIn && <Link to='/login'><button type="button" className="btn btn-outline-primary me-2" onClick={()=>dispath(authActions.logout())}>Logout</button></Link> }
+              {isLoggedIn && <>
+                <Nav.Link href="/profile" style={{ color: "#ffffff" }} >PROFILE</Nav.Link>
+                <Nav.Link href="/display" style={{ color: "#ffffff" }} >SEARCH SKILLS</Nav.Link>
+                <Nav.Link href="/addskill" style={{ color: "#ffffff" }}>ADD SKILL</Nav.Link>
+                <Nav.Link href="/myskills" style={{ color: "#ffffff" }}>MY SKILLs</Nav.Link></>
+                }
+            {!isLoggedIn && <><Nav.Link href="/login" style={{ color: "#ffffff" }} >LOGIN</Nav.Link>
+                <Nav.Link href="/signup" style={{ color: "#ffffff" }}>SIGNUP</Nav.Link></> }
+              {isLoggedIn && <Link to='/'><button type="button" className="btn btn-primary me-2" onClick={() => dispath(authActions.logout())}>Logout</button></Link>}
             </Nav>
           </Form>
         </Navbar.Collapse>

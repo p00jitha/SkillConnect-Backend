@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { authActions } from '../Store';
-import Header from '../Home/Header'
 
 const Login = () => {
   const divStyle={
@@ -49,7 +48,6 @@ const Login = () => {
 
   return (
     <>
-     <Header/>
      <div className='container'>
          <div className='container' style={divStyle}>
           <div className='box' style={loginStyle}>

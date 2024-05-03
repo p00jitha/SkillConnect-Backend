@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import '../Home/Banner.css';
+import '../Home/styles/Banner.css';
 import Profile from './Profile'
 import img3 from '../Images/img3.jpg';
 import axios from 'axios';
-import Header from '../Home/Header';
 
 const Display = () => {
   const [usersWithSkills, setUsersWithSkills] = useState([]);
@@ -19,7 +18,7 @@ const Display = () => {
     
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/skill/skills', { params: { address: address } });
+        const response = await axios.post('http://localhost:5000/api/skill/skills', {address: address});
         setUsersWithSkills(response.data.usersWithSkills);
         console.log(usersWithSkills)
       } catch (error) {
@@ -36,7 +35,6 @@ const Display = () => {
 
   return (
     <>
-    <Header/>
     <div style={{backgroundColor:"white"}}>
       {usersWithSkills.length > 0 ? (
         <div>

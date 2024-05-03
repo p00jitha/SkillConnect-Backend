@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import axios from 'axios';
-import Header from '../Home/Header';
 import { useDispatch } from 'react-redux'
 import { authActions } from '../Store';
 import { useNavigate } from "react-router-dom";
@@ -12,15 +10,15 @@ const PostSkill = () => {
     justifyContent:'center',
     alignItems:'center',
     minHeight:'90vh',
-   color:'blue'
+   color:'white'
   }
   const loginStyle={
     width:'450px',
-    height:'450px',
+    height:'500px',
    display:'flex',
     flexDirection:'column',
     padding:'30px 25px 30px 25px',
-    boxShadow:'5px 5px 5px 5px blue'
+    boxShadow:'5px 5px 5px 5px white'
  }
  const navigate = useNavigate(); 
  const dispath = useDispatch();
@@ -63,7 +61,7 @@ const PostSkill = () => {
     postData.append('credentials', formData.credentialsphoto);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/skill/skills', postData, {
+      const response = await axios.post('http://localhost:5000/api/skill/add_skills', postData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -78,7 +76,6 @@ const PostSkill = () => {
 
   return (
    <>
-   <Header/>
    <div className='container'>
          <div className='container' style={divStyle}>
           <div className='box' style={loginStyle}>
@@ -96,7 +93,9 @@ const PostSkill = () => {
          </div>
          <div className="form-outline mb-4">
            <label className="form-label" for="form2Example2">Credentials</label>
-           <input type="file" name="credentials"  onChange={handleFileChange} required />
+           <div >
+           <input type="file" name="credentials" onChange={handleFileChange} required />
+           </div>
          </div>
          <button type="submit" className="btn btn-primary btn-block mb-4">Post Skill</button>
             </form>

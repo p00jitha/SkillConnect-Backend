@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom'
 import { motion } from 'framer-motion';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Banner.css';
+import './styles/Banner.css';
 import skill1 from '../Images/skill1.png'
 import { useNavigate } from 'react-router-dom';
 const TypewriterEffect = ({ text }) => {

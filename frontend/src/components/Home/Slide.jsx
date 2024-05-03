@@ -3,7 +3,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Skills from "./Skills";
 import { skillsdata, responsive } from "./Data";
-import './Slide.css'
+import './styles/Slide.css'
 const Slide = () => {
     const product = skillsdata.map((item) => (
         <Skills

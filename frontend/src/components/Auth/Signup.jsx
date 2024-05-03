@@ -74,7 +74,6 @@ const Signup = () => {
     
   return (
     <>
-    <Header/>
 <div className='container'>
 <div className='container' style={divStyle}>
         <div className='box' style={loginStyle}>
