@@ -21,6 +21,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/skill",skillRoutes);
 app.use("/api/profile",profileRoutes);
 
+app.get('/',(req,res)=>{
+    res.send('hello')
+})
+
 connectdatabase();
 
 const PORT = process.env.PORT
