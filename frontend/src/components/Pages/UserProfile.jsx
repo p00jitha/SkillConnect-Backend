@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import axios from 'axios'
+import toast from "react-hot-toast";
 import './styles/Profile.css'
 const UserProfile = () => {
   const [skill, setSkill] = useState([]);
@@ -8,8 +9,13 @@ const UserProfile = () => {
   const sendRequest = async () => {
     const res = await axios
       .get(`http://localhost:5000/api/profile/${id}`)
-      .catch((err) => console.log(err));
+      .catch((err) =>{ console.log(err)
+        toast.error(err.message);
+      });
     const data = await res.data;
+    if (data.error) {
+      throw new Error(data.error);
+    }
     return data;
   };
   useEffect(() => {
@@ -51,16 +57,17 @@ const UserProfile = () => {
             </div>
           </div>
        
-          <div className="px-5 py-5" style={{marginTop:"20px",boxShadow:"5px 5px 10px #0c243b"}}>
+          <div className="px-5 py-5" >
             <div className=" rounded shadow-sm bg-#0c243b" style={{marginTop:"20px",marginRight:"50px",padding:"20px"}} >
             <h5 className="mb-0">Skills:</h5>
             {skill.map(skills => (
               <>
-                    <p key={skills._id}>{skills.skillName}:</p>
+                    <li key={skills._id}>{skills.skillName}</li>
               </>
             ))}
             </div>
           </div>
+          
           <div className="py-4 px-4">
             <div className="d-flex align-items-center justify-content-between mb-3">
               <h5 className="mb-0">CREDENTIALS:</h5>

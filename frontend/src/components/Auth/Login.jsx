@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import toast from "react-hot-toast";
 import { useDispatch } from 'react-redux'
 import { authActions } from '../Store';
 
@@ -30,9 +31,15 @@ const Login = () => {
         email: email,
         password: password
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {console.log(err)
+        toast.error(err.message);
+      });
 
     const data = await res.data;
+    if(data.error)
+      {
+        toast.error(data.error);
+      }
     console.log(data)
     return data;
   };

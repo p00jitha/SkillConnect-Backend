@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import Header from '../Home/Header'
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const divStyle={
@@ -68,7 +68,7 @@ const Signup = () => {
           .then(()=>navigate('/login'))
           console.log(response.data);
         } catch (error) {
-          console.error(error);
+          toast.error(error.message);
         }
       };
     

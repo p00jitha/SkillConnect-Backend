@@ -11,6 +11,7 @@ import Display from './components/Pages/Display';
 import AddSkill from './components/Pages/AddSkill'
 import UserSkills from './components/Pages/UserSkills';
 import UserProfile from './components/Pages/UserProfile'
+import EditSkills from './components/Pages/EditSkills';
 
 const App = () => {
   const dispath = useDispatch();
@@ -36,8 +37,7 @@ const App = () => {
             <Route path='/display' element={<Display />} />
             <Route path='/myskills' element={<UserSkills />} />
             <Route path='/profile' element={<UserProfile />} />
-            {/* 
-        <Route path='/myskills/:id' element={<EditSkills />} /> */}
+           <Route path='/myskills/:id' element={<EditSkills />} />
             <Route path='/addskill' element={<AddSkill />} />
           </>)}
         </Routes>

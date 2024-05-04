@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React , { useState, useEffect } from 'react'
 import axios from 'axios';
-import toast from "react-hot-toast";
 import { useDispatch } from 'react-redux'
 import { authActions } from '../Store';
 import { useNavigate } from "react-router-dom";
 
-const PostSkill = () => {
+const EditSkills = () => {
   const divStyle={
     display:'flex',
     justifyContent:'center',
@@ -22,7 +21,6 @@ const PostSkill = () => {
     boxShadow:'5px 5px 5px 5px white'
  }
  const navigate = useNavigate(); 
- const dispath = useDispatch();
   const [formData, setFormData] = useState({
     userId: '',
     skillName: '',
@@ -67,18 +65,16 @@ const PostSkill = () => {
           'Content-Type': 'multipart/form-data'
         }
       })
-      .then(() => dispath(authActions.login()))
-      .then(()=>navigate('/display'))
+      .then(()=>navigate('/myskills'))
       console.log(response.data);
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
     }
   };
 
   return (
-   <>
-   <div className='container'>
+    <>
+      <div className='container'>
          <div className='container' style={divStyle}>
           <div className='box' style={loginStyle}>
             <form onSubmit={handleSubmit}>
@@ -104,10 +100,9 @@ const PostSkill = () => {
           </div>
          </div>
      </div>
-   </>
-  );
+    </>
+  )
 }
 
-export default PostSkill;
-
-
+export default EditSkills
+ 
