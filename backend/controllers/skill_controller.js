@@ -114,6 +114,19 @@ export const user_skills = async(req,res)=>{
   }
 }
 
+export const getuserskill = async(req,res)=>{
+  const skillId = req.params.id;
+  try{
+      const skill = await Skill.findById(skillId);
+      return res.status(200).json({skill});
+  }
+  catch(err)
+  {
+   console.log(err)
+   return res.status(500).json({ error: "Internal server error" });
+  }
+}
+
 //update skills of a user
 export const update_skills = async(req,res)=>{
   try{

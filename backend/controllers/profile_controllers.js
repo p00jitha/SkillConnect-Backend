@@ -11,9 +11,9 @@ export const user_profile = async(req,res)=>{
       const usersWithSkills = [];
         const skills = await Skill.find({ userId: users._id });
         if (skills.length > 0) {
-          usersWithSkills.push({ users, skills });
+          usersWithSkills.push({skills });
         }
-        return res.status(200).json({ usersWithSkills });
+        return res.status(200).json({users, usersWithSkills });
     }
     catch(err)
     {
