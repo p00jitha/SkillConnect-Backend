@@ -1,6 +1,7 @@
 import React, { useEffect }  from 'react'
 import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import { Toaster } from "react-hot-toast";
 import { authActions } from './components/Store';
 import Signup from './components/Auth/Signup'
 import Login from './components/Auth/Login'
@@ -11,7 +12,6 @@ import Display from './components/Pages/Display';
 import AddSkill from './components/Pages/AddSkill'
 import UserSkills from './components/Pages/UserSkills';
 import UserProfile from './components/Pages/UserProfile'
-import EditSkills from './components/Pages/EditSkills';
 
 const App = () => {
   const dispath = useDispatch();
@@ -37,10 +37,10 @@ const App = () => {
             <Route path='/display' element={<Display />} />
             <Route path='/myskills' element={<UserSkills />} />
             <Route path='/profile' element={<UserProfile />} />
-           <Route path='/myskills/:id' element={<EditSkills />} />
             <Route path='/addskill' element={<AddSkill />} />
           </>)}
         </Routes>
+        <Toaster />
       </main>
     </React.Fragment>
   )

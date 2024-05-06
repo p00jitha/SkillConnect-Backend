@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'
 import toast from "react-hot-toast";
+import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { authActions } from '../Store';
 
@@ -32,7 +32,8 @@ const Login = () => {
         password: password
       })
       .catch((err) => {
-        throw err.response.data.message;
+        toast.error(err.response.data.error);
+       console.log(err.response.data.error)
       });
 
     const data = await res.data;
@@ -49,8 +50,7 @@ const Login = () => {
       .then(()=>navigate('/display'))
 }
 catch (error) {
-  console.error("Login Error:", error);
-  toast.error(error); 
+  console.log(error)
 }
   };
 
@@ -64,12 +64,12 @@ catch (error) {
             <div className="form-outline mb-4"></div>
             <div className="form-outline mb-4"></div>
         <div className="form-outline mb-4">
-             <label className="form-label" for="form2Example1">Email</label>
-            <input type="email" id="form2Example1" className="form-control" placeholder='enter email' name='email' value={email} onChange={(e) => setEmail(e.target.value)}  autoComplete="off" />
+             <label className="form-label">Email</label>
+            <input type="email" id="form2Example1" className="form-control" placeholder='enter email' name='email' value={email} onChange={(e) => setEmail(e.target.value)}  autoComplete="off" required/>
           </div>
           <div className="form-outline mb-4">
-           <label className="form-label" for="form2Example2">Password</label>
-           <input type="password" id="form2Example2" className="form-control" placeholder='enter password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+           <label className="form-label">Password</label>
+           <input type="password" id="form2Example2" className="form-control" placeholder='enter password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} required/>
          </div>
          <button type="submit" className="btn btn-primary btn-block mb-4">Login</button>
            <div className="row mb-4">

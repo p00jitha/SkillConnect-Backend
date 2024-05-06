@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import toast from "react-hot-toast";
 import '../Home/styles/Banner.css';
 import Profile from './Profile'
 import img3 from '../Images/img3.jpg';
@@ -22,16 +23,12 @@ const Display = () => {
         setUsersWithSkills(response.data.usersWithSkills);
         console.log(usersWithSkills)
       } catch (error) {
+        toast.error(error.response.data.message);
         console.log(error)
-        setError('Error fetching data');
       }
     };
     fetchData();
   };
-
-  if (error) {
-    return <div>{error}</div>;
-  }
 
   return (
     <>
