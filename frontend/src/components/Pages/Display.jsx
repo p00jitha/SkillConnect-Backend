@@ -7,7 +7,6 @@ import axios from 'axios';
 
 const Display = () => {
   const [usersWithSkills, setUsersWithSkills] = useState([]);
-  const [error, setError] = useState('');
   const [address, setAddress] = useState('');
 
   const handleAddressChange = (e) => {

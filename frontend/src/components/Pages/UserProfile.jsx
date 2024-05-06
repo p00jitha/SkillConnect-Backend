@@ -18,18 +18,18 @@ const UserProfile = () => {
   };
   useEffect(() => {
     sendRequest().then((data) => {
-      if(data.usersWithSkills>0)
-      {
-      const [{ skills }] = data.usersWithSkills;
-      setSkill(skills)
-      }
-      else
-      {
-        setSkill([])
-      }
-      const users = data.users
-      setProfile(users || [])
-    });
+      const { usersWithSkills, users } = data;
+
+    if (usersWithSkills.length > 0) {
+      const [{ skills }] = usersWithSkills;
+      setSkill(skills);
+      console.log(skills);
+    } else {
+      setSkill([]);
+    }
+
+    setProfile(users || []);
+  });
   }, []);
   return (
     <div>
@@ -61,23 +61,34 @@ const UserProfile = () => {
             </div>
             {skill.length>0 ? (
            <div>
-            <div className="px-5 py-5" >
-              <div className=" rounded shadow-sm bg-#0c243b" style={{ marginTop: "20px", marginRight: "50px", padding: "20px" }} >
-                <h5 className="mb-0">Skills:</h5>
-                {skill.map(skills => (
-                  <>
-                    <li key={skills._id}>{skills.skillName}</li>
-                  </>
-                ))}
-              </div>
-            </div>
-
             <div className="py-4 px-4">
               <div className="d-flex align-items-center justify-content-between mb-3">
                 <h5 className="mb-0">CREDENTIALS:</h5>
               </div>
               <div className="row">
-                {skill.map(skills => (
+              <div className="px-5 py-5" style={{ marginTop: "20px", boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.5)" }}>
+                        <h5>Skills:</h5>
+                        <ul>
+                            {skill.map((skills, index) => (
+                                <li key={index}>
+                                    <div style={{ display: "flex", flexDirection: "row",alignItems:"center",justifyContent:"center"}}>
+                                        <div>
+                                            <p><span style={{fontWeight:"bold"}}>Skill Name:</span> {skills.skillName}</p>
+                                            <p> {skills.description}</p>
+                                        </div>
+                                        <div className="col-lg-6 mb-2 pr-lg-1">
+                                            <img
+                                                src={`http://localhost:5000/Skills/${skills.credentials}`}
+                                                alt=""
+                                                className="img-fluid rounded shadow-sm"
+                                            />
+                                        </div>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                {/* {skill.map(skills => (
                   <div className="col-lg-6 mb-2 pl-lg-1" key={skills._id}>
                     <img
                       src={`http://localhost:5000/Skills/${skills.credentials}`}
@@ -85,7 +96,7 @@ const UserProfile = () => {
                       className="img-fluid rounded shadow-sm"
                     />
                   </div>
-                ))}
+                ))} */}
               </div>
             </div>
             </div>

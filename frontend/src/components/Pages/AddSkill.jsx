@@ -67,12 +67,10 @@ const PostSkill = () => {
           'Content-Type': 'multipart/form-data'
         }
       })
-      .then(() => dispath(authActions.login()))
       .then(()=>navigate('/display'))
-      console.log(response.data);
+      console.log(response);
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
     }
   };
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import {Link} from 'react-router-dom'
 import axios from 'axios'
 import './styles/UserSkill.css'
 const UserSkills = () => {
@@ -29,7 +30,12 @@ const UserSkills = () => {
   };
   const handleDelete = (skillid) => {
     deleteRequest(skillid)
-      .then(() => navigate("/myskills"));
+    .then(() => {
+      navigate("/");
+    })
+    .catch((error) => {
+      console.error("Error deleting skill:", error);
+    });
   };
   return (
     <>
@@ -54,7 +60,20 @@ const UserSkills = () => {
         ))}
       </div>) : (
         <>
-           <h1>No skills</h1>
+          <div>
+            <div className="px-4 py-5 my-5 text-center">
+              <h1 className="display-5 fw-bold" style={{ color: "white" }}>🌟Empower.💡Share.🎓Learn.🤝Connect.🌱Grow.</h1>
+              <div className="col-lg-6 mx-auto">
+                <h2 className="lead mb-4" style={{ color: "white" }}>🚀 Ready to share your expertise and ignite a passion for learning? Don't wait! Add your skills now
+                  and become a beacon of knowledge in your community. 🌟 Whether it's coding, cooking, or crafting, your talents can
+                  inspire others to reach new heights. Let's embark on this exciting journey together! 💡</h2>
+                  <p> #UnlockYourPotential #EmpowerOthers 🌱</p>
+                <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <Link to='/addskill'><button type="submit" className="btn btn-primary me-2">ADD SKILLS</button></Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </>
       )}
     </>

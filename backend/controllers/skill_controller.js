@@ -66,9 +66,10 @@ catch(err)
 
 //get skills by users location
 export const get_skills = async(req,res)=>{
-  const {address} = req.body;
+  let {address} = req.body;
+  address = address.toLowerCase();
   try{
-     const users = await User.find({address});
+     const users = await User.find({ address: { $regex: new RegExp(address, "i") } });
     if (users.length === 0) {
       return res.status(404).json({ message: 'No users found in the specified location' });
     }

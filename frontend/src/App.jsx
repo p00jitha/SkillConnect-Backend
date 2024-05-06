@@ -12,6 +12,7 @@ import Display from './components/Pages/Display';
 import AddSkill from './components/Pages/AddSkill'
 import UserSkills from './components/Pages/UserSkills';
 import UserProfile from './components/Pages/UserProfile'
+import OTPverification from './components/Auth/OTPverification';
 
 const App = () => {
   const dispath = useDispatch();
@@ -33,6 +34,7 @@ const App = () => {
           {!isLoggedIn ? (<>
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
+            <Route path='/verifyotp' element={<OTPverification/>}/>
           </>) : (<>
             <Route path='/display' element={<Display />} />
             <Route path='/myskills' element={<UserSkills />} />
