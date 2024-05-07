@@ -18,7 +18,7 @@ const Display = () => {
     
     const fetchData = async () => {
       try {
-        const response = await axios.post('http://localhost:5000/api/skill/skills', {address: address});
+        const response = await axios.post('https://skillconnect-backend.onrender.com/api/skill/skills', {address: address});
         setUsersWithSkills(response.data.usersWithSkills);
         console.log(usersWithSkills)
       } catch (error) {
@@ -41,7 +41,7 @@ const Display = () => {
               email={userData.user.email} 
               phoneno={userData.user.phoneno} 
               address={userData.user.address} 
-              imgurl={`http://localhost:5000/Images/${userData.user.profilePic}`} 
+              imgurl={`https://skillconnect-backend.onrender.com/Images/${userData.user.profilePic}`} 
               skills={userData.skills}/>
             </div>
             </>
@@ -58,7 +58,7 @@ const Display = () => {
         <form className="form-inline" onSubmit={handleSubmit}>
           <div className="form-group">
             </div>
-            <input type="text" class="form-control form-control-lg mr-2 mb-2" id="address"
+            <input type="text" className="form-control form-control-lg mr-2 mb-2" id="address"
           name="address"
           value={address} onChange={handleAddressChange} placeholder="Enter Location" required></input>
           <button type="submit" className="btn btn-md btn-success-gradiant text-white border-0 mb-2">Search</button>
@@ -80,50 +80,3 @@ const Display = () => {
 export default Display;
 
 
-{/* <form onSubmit={handleSubmit}>
-<label htmlFor="address">Enter Address:</label>
-<input
-  type="text"
-  id="address"
-  name="address"
-  value={address}
-  onChange={handleAddressChange}
-  placeholder="Enter address..."
-  required
-/>
-<button type="submit">Search</button>
-</form> */}
-
-{/* <div key={index}>
-<Profile user={userData.user.username} email={userData.user.email} phoneno={userData.user.phoneno} address={userData.user.address}/>
-<h3>User: {userData.user.username}</h3>
-<p>Email: {userData.user.email}</p>
-<li>Phoneno:{userData.user.phoneno}</li>
-<li>address:{userData.user.address}</li>
-<img src={`http://localhost:5000/Images/${userData.user.profilePic}`} alt="profilepic"/>
-<p>Skills:</p>
-<ul>
-  {userData.skills.map((skill, index) => (
-    <>
-    <li key={index}>{skill.skillName}</li>
-    <p>Credentials Photo:</p>
-    <img src={`http://localhost:5000/Skills/${skill.credentials}`} alt="Credentials" />
-    </>
-  ))}
-</ul>
-{userData.user.credentialsPhoto && (
-  <div>
-  </div>
-)}
-</div> */}
-
-{/* <p>Skills:</p>
-              <ul>
-                {userData.skills.map((skill, index) => (
-                  <>
-                  <li key={index}>{skill.skillName}</li>
-                  <p>Credentials Photo:</p>
-                  <img src={`http://localhost:5000/Skills/${skill.credentials}`} alt="Credentials" />
-                  </>
-                ))}
-              </ul> */}

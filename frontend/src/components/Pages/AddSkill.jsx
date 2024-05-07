@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast from "react-hot-toast";
 import { useDispatch } from 'react-redux'
-import { authActions } from '../Store';
 import { useNavigate } from "react-router-dom";
 
 const PostSkill = () => {
@@ -62,11 +61,12 @@ const PostSkill = () => {
     postData.append('credentials', formData.credentialsphoto);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/skill/add_skills', postData, {
+      const response = await axios.post('https://skillconnect-backend.onrender.com/api/skill/add_skills', postData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       })
+      .then(()=>toast.success("Skill added successfully"))
       .then(()=>navigate('/display'))
       console.log(response);
     } catch (error) {

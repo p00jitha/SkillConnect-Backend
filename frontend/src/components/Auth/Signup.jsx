@@ -1,8 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { authActions } from '../Store';
 import axios from 'axios';
 import toast from "react-hot-toast";
 
@@ -33,7 +31,6 @@ const Signup = () => {
       });
     
       const navigate = useNavigate(); 
-      const dispatch = useDispatch();
 
       const handleChange = (e) => {
         setFormData({
@@ -61,18 +58,18 @@ const Signup = () => {
         formDatasend.append('phoneno', phoneno);
         formDatasend.append('address', address);
         formDatasend.append('profilePic', profilePic);
-
-        dispatch(authActions.register(email));
     
         try {
-          const response = await axios.post('http://localhost:5000/api/auth/signup', formDatasend, {
+          const response = await axios.post('https://skillconnect-backend.onrender.com/api/auth/signup', formDatasend, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
           })
-          .then(()=>navigate('/verifyotp'))
+          console.log(response.data.data.email)
+          navigate(`/verifyotp?email=${response.data.data.email}`)
         } catch (error) {
-          toast.error(error.message);
+          toast.error(error.response.data.error);
+          console.log(error.reponse.data)
         }
       };
     

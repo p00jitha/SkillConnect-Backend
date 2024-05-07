@@ -8,7 +8,7 @@ const UserProfile = () => {
   const [profile, setProfile] = useState([]);
   const id = localStorage.getItem("userId");
   const sendRequest = async () => {
-    const res = await axios.get(`http://localhost:5000/api/profile/${id}`)
+    const res = await axios.get(`https://skillconnect-backend.onrender.com/api/profile/${id}`)
     const data = await res.data;
     if (data.error) {
       throw new Error(data.error);
@@ -42,7 +42,7 @@ const UserProfile = () => {
                   <div className="row">
                     <div className="col-4">
                       <img
-                        src={`http://localhost:5000/Images/${profile.profilePic}`}
+                        src={`https://skillconnect-backend.onrender.com/Images/${profile.profilePic}`}
                         alt="..."
                         width="130"
                         className="rounded mb-2 img-thumbnail"
@@ -78,7 +78,7 @@ const UserProfile = () => {
                                         </div>
                                         <div className="col-lg-6 mb-2 pr-lg-1">
                                             <img
-                                                src={`http://localhost:5000/Skills/${skills.credentials}`}
+                                                src={`https://skillconnect-backend.onrender.com/Skills/${skills.credentials}`}
                                                 alt=""
                                                 className="img-fluid rounded shadow-sm"
                                             />
@@ -88,15 +88,6 @@ const UserProfile = () => {
                             ))}
                         </ul>
                     </div>
-                {/* {skill.map(skills => (
-                  <div className="col-lg-6 mb-2 pl-lg-1" key={skills._id}>
-                    <img
-                      src={`http://localhost:5000/Skills/${skills.credentials}`}
-                      alt=""
-                      className="img-fluid rounded shadow-sm"
-                    />
-                  </div>
-                ))} */}
               </div>
             </div>
             </div>

@@ -7,12 +7,13 @@ import Signup from './components/Auth/Signup'
 import Login from './components/Auth/Login'
 import Home from './components/Home/Home'
 import Header from './components/Home/Header'
-import './App.css'
 import Display from './components/Pages/Display';
 import AddSkill from './components/Pages/AddSkill'
 import UserSkills from './components/Pages/UserSkills';
 import UserProfile from './components/Pages/UserProfile'
 import OTPverification from './components/Auth/OTPverification';
+import Forgotpw from './components/Auth/Forgotpw';
+import './App.css'
 
 const App = () => {
   const dispath = useDispatch();
@@ -34,6 +35,7 @@ const App = () => {
           {!isLoggedIn ? (<>
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
+            <Route path='/forgotpw' element={<Forgotpw/>}/>
             <Route path='/verifyotp' element={<OTPverification/>}/>
           </>) : (<>
             <Route path='/display' element={<Display />} />

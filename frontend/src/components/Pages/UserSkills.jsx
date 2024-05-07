@@ -9,7 +9,7 @@ const UserSkills = () => {
   const id = localStorage.getItem("userId");
   const sendRequest = async () => {
     const res = await axios
-      .get(`http://localhost:5000/api/skill/${id}`)
+      .get(`https://skillconnect-backend.onrender.com/api/skill/${id}`)
       .catch((err) => console.log(err));
     const data = await res.data;
     return data;
@@ -23,7 +23,7 @@ const UserSkills = () => {
   }, []);
   const deleteRequest = async (skillid) => {
     const res = await axios
-      .delete(`http://localhost:5000/api/skill/${id}/${skillid}`)
+      .delete(`https://skillconnect-backend.onrender.com/api/skill/${id}/${skillid}`)
       .catch((err) => console.log(err));
     const data = await res.data;
     return data;
@@ -43,7 +43,7 @@ const UserSkills = () => {
         {skill.map(skills => (
           <div className='userskills' key={skills._id}>
             <div className="card dark" id="card">
-              <img src={`http://localhost:5000/Skills/${skills.credentials}`} className="card-img-top" id="card-img" alt="..." />
+              <img src={`https://skillconnect-backend.onrender.com/Skills/${skills.credentials}`} className="card-img-top" id="card-img" alt="..." />
               <div className="card-body">
                 <div className="text-section">
                   <h5 className="card-title fw-bold">{skills.skillName}</h5>

@@ -2,11 +2,9 @@ import React from 'react';
 import './styles/Profile.css'
 
 const Profile = ({ username, email, phoneno, address, imgurl, skills }) => {
-    console.log(skills[0].description)
     return (
         <div className="row py-5 px-4" id="a" >
             <div className="col-md-5 mx-auto">
-                {/* Profile widget */}
                 <div className="bg-dark shadow rounded overflow-hidden">
                     <div className="px-4 pt-0 pb-4 cover">
                         <div className="media align-items-end profile-head">
@@ -19,7 +17,6 @@ const Profile = ({ username, email, phoneno, address, imgurl, skills }) => {
                                             width="130"
                                             className="rounded mb-2 img-thumbnail"
                                         />
-                                        {/*<a href="#" className="btn btn-outline-light btn-sm btn-block">Edit profile</a>*/}
                                     </div>
                                     <div className="col-8">
                                         <h4 style={{ fontFamily: "Edwardian Script", fontWeight: "bold" }}>{username}</h4>
@@ -50,7 +47,7 @@ const Profile = ({ username, email, phoneno, address, imgurl, skills }) => {
                                         </div>
                                         <div className="col-lg-6 mb-2 pr-lg-1">
                                             <img
-                                                src={`http://localhost:5000/Skills/${skill.credentials}`}
+                                                src={`https://skillconnect-backend.onrender.com/Skills/${skill.credentials}`}
                                                 alt=""
                                                 className="img-fluid rounded shadow-sm"
                                             />
