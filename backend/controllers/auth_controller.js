@@ -86,15 +86,29 @@ export const signup = async(req,res)=>{
   }
 }
 
-const sendOTPverification = async({_id,email},res)=>{
+const sendOTPverification = async({_id,username,email},res)=>{
   try{
      const otp = `${Math.floor(10000+Math.random()*9000)}`;
      const mailOptions = {
         from:process.env.AUTH_EMAIL,
         to:email,
-        subject:"verify your email",
-        html:`<p>Enter <b>${otp} in the app to verify your email address</b></p>
-        <p>This code expires in 1hr</p>`
+        subject:"🎉 Welcome! Confirm Your Email Address to Get Started 🚀",
+        html:`
+        <div style="font-family: Arial, sans-serif; color: #333;">
+      <h1 style="color: #007bff;">Welcome to Our Platform SkillConnect!</h1>
+      <p>Dear ${username},</p>
+      <p>Congratulations on taking the first step towards unlocking endless learning possibilities!</p>
+      <p>To kickstart your journey, please verify your email address by entering the OTP below:</p>
+      <div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+        <h2 style="font-size: 28px; color: #007bff; margin: 0;">${otp}</h2>
+      </div>
+      <p>This unique code is your ticket to accessing our diverse community of skilled mentors and passionate learners.</p>
+      <p>Don't miss out! Hurry and enter the OTP in the app before it expires in 1 hour.</p>
+      <p>If you didn't request this verification or need assistance, feel free to contact our support team.</p>
+      <p>Happy learning!</p>
+      <p>Best regards,<br/>Your SikkConnect Team 🌟</p>
+    </div>
+      `
      }
      const hashedOTP = await bcrypt.hash(otp,10)
      const newOTPverification = await new userOTPverification({
@@ -124,7 +138,7 @@ export const otpverification = async (req, res) => {
   try {
     const { email, otp } = req.body;
     if (!email || !otp) {
-      res.status(400).json({ error: "Enter OTP and Email" });
+      res.status(400).json({ error: "Enter OTP" });
     } else {
       const user = await User.findOne({ email });
       if (!user) {
@@ -171,7 +185,7 @@ export const resendOTP = async (req, res) => {
         res.status(400).json({ error: "User with this email does not exist" });
       } else {
         await userOTPverification.deleteMany({ userId: user._id });
-        sendOTPverification({ _id: user._id, email }, res);
+        sendOTPverification({ _id: user._id,username:user.username, email }, res);
       }
     }
   } catch (error) {
@@ -179,77 +193,6 @@ export const resendOTP = async (req, res) => {
   }
 };
 
-
-// export const otpverification = async(req,res)=>{
-//   try{
-//      let {userId,otp} = req.body;
-//      if(!userId || !otp)
-//      {
-//         res.status(400).json({error:"Enter OTP"})
-//      }
-//      else
-//      {
-//         const UserVerificationRecords = await userOTPverification.find({userId});
-//         if(UserVerificationRecords.length<=0)
-//         {
-//            res.status(400).json({error:"Acc record doesn't exist or has been verified already.Please Login"})
-//         }
-//         else
-//         {
-//            const {expiresAt} = UserVerificationRecords[0];
-//            const hashedOTP = UserVerificationRecords[0].otp;
-//            if(expiresAt<Date.now())
-//            {
-//               await userOTPverification.deleteMany({userId});
-//               res.status(400).json({error:"Code has expired. Please Signup again."})
-//            }
-//            else
-//            {
-//               const validOTP = await bcrypt.compare(otp,hashedOTP)
-//               if(!validOTP)
-//               {
-//                  res.status(400).json({error:"Invalid code passed. Check your inbox."})
-//               }
-//               else
-//               {
-//                  await User.updateOne({_id:userId},{verified:true});
-//                  await userOTPverification.deleteMany({userId});
-//                  res.json({
-//                     status:"verified",
-//                     message:"user email verified successfully",
-//                  })
-//               }
-//            }
-//         }
-//      }
-//   }catch(err)
-//   {
-//      res.status(400).json({error:"error"})
-//      console.log(err)
-//   }
-// }
-
-// export const resendOTP = async(req,res)=>{
-//   try{
-//      let {userId,email} = req.body;
-//      if(!userId || !email)
-//      {
-//         res.status(500).json({error:"Empty user details are not allowed"})
-//      }
-//      else
-//      {
-//         await userOTPverification.deleteMany({userId});
-//         sendOTPverification({_id:userId,email},res);
-//      }
-//   }
-//   catch(error)
-//   {
-//      res.json({
-//         status:"FAILED",
-//         message:error.message
-//      });
-//   }
-// }
 
  export const login = async(req,res)=>{
     try
@@ -274,6 +217,34 @@ export const resendOTP = async (req, res) => {
       return res.status(500).json({ error: "Internal server error" })
     }
   }
+
+export const forgotpw = async(req,res)=>{
+  try{
+    const {email,password,confirmPassword} = req.body;
+    const user = await User.findOne({email});
+    if(!user)
+    {
+      return res.status(400).json({ error: "Invalid username" })
+    }
+    if (password !== confirmPassword) {
+      return res.status(400).json({ error: "Passwords don't match" });
+    }
+    const newpassword = await bcrypt.hash(password, 10);
+    User.updateOne({ email : email }, { $set: { password:newpassword } })
+   .then(() => {
+    res.status(200).json({_id:user._id,email:user.email})
+   })
+   .catch(err => {
+    console.log(err)
+    return res.status(400).json({ error: "Unable change password" })
+   });
+  }
+  catch(err)
+  {
+    console.log(err)
+    return res.status(500).json({ error: "Internal server error" })
+  }
+}
 
 export const logout = (req,res)=>{
     try{
