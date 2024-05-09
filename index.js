@@ -10,7 +10,7 @@ import profileRoutes from './routes/profile_routes.js'
 const app = express()
 
 dotenv.config()
-app.use(cors({origin:'http://localhost:5173', credentials: true}));
+app.use(cors({origin:'*', credentials: true}));
 app.use(express.json())
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
